@@ -81,7 +81,8 @@ country_list <- c("United States", "Ghana", "Mexico", "France")
 un_votes |>
   filter(country %in% country_list) |>
   inner_join(un_roll_calls, by = "rcid") |> 
-  group_by(year = year(date), country) |>
+  group_by(year = year(date), country) |> #group by doesn't change how the data look. It changes how
+                                          #the data act with other functions
   summarize(votes = n(),
             percent_yes = mean(vote == "yes")) |>
   ggplot(mapping = aes(x = year, y = percent_yes, color = country)) +
