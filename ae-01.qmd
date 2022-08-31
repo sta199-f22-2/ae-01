@@ -95,3 +95,32 @@ Consider the plot from Part 1. Describe how the voting behaviors of the four cou
 What are you left wondering? What other questions could we ask? 
 
 ## Part 2
+
+Let's take a look at how voting records have changed for each issue.
+
+```{r}
+#| message: false
+un_votes %>%
+  filter(country %in% c("United States", "France")) %>%
+  inner_join(un_roll_calls, by = "rcid") %>%
+  inner_join(un_roll_call_issues, by = "rcid") %>%
+  group_by(country, year = year(date), issue) %>%
+  summarize(votes = n(),
+            percent_yes = mean(vote == "yes")) %>%
+  filter(votes > 5) %>%  # Only use records where there are more than 5 votes
+  ggplot(mapping = aes(x = year, y = percent_yes, color = country)) +
+    geom_point() +
+    geom_smooth(method = "loess", se = FALSE) + 
+    ylab("% of votes that are 'Yes'") +
+    facet_wrap(~ issue) +
+  scale_color_viridis_d() 
+```
+
+
+# Discussion Questions
+
+2.  Consider the plot from Part 2.
+
+-- On which issues have the two countries voted most similarly over time?
+
+-- On which issues have they voted most differently over time?
