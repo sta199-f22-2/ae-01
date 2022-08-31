@@ -93,3 +93,5 @@ un_votes |>
 Consider the plot from Part 1. Describe how the voting behaviors of the four countries have changed over time.
 
 What are you left wondering? What other questions could we ask? 
+
+## Part 2
